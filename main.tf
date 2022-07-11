@@ -9,9 +9,19 @@ resource "aviatrix_fqdn" "fqdn_filter" {
   fqdn_mode    = "white"
   fqdn_enabled = true
   gw_filter_tag_list {
-    gw_name = data.aviatrix_spoke_gateway.egress.gw_name
+    gw_name        = "test-gw1"
+    source_ip_list = [
+      "172.31.0.0/16",
+      "172.31.0.0/20"
+    ]
   }
-  manage_domain_names = false
+
+  gw_filter_tag_list {
+    gw_name        = "test-gw2"
+    source_ip_list = [
+      "30.0.0.0/16"
+    ]
+  }
 }
 
 resource "aviatrix_fqdn_tag_rule" "tcp" {
